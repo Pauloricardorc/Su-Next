@@ -4,6 +4,15 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      'sans': ['ui-sans-serif', 'system-ui'],
+      'serif': ['ui-serif', 'Georgia'],
+      'mono': ['ui-monospace', 'SFMono-Regular'],
+      'Oswald': ['Oswald', 'sans-serif'],
+      'Righteous': ['Righteous', 'cursive'],
+      'Roboto': ['Roboto', 'sans-serif'],
+      'Indie': ['Indie Flower', 'cursive']
+    },
     extend: {},
   },
   plugins: [],
