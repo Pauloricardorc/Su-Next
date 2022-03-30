@@ -1,5 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1>Projeto de introdução ao Next Auth & Prisma (ORM)</h1>
 
+## Pagina inicial que vão fazer o resumo sobre o site
+<img src="./imgMarkdown/Home.png" />
+
+
+</hr>
+</br>
+
+## Serviços que o site disponibiliza para o usuario
+<img src="./imgMarkdown/ServiceHome.png" />
+
+
+</hr>
+</br>
+
+## Pagina de login que foi feita para conseguir fazer o login direto pelo github ou google ou um magiclink ( link para acesso ao site completo )
+<img src="./imgMarkdown/Login.png" />
+
+</hr>
+</br>
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+</br>
+</br>
+</br>
 ## Getting Started
 
 First, run the development server:
