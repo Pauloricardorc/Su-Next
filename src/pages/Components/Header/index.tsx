@@ -22,9 +22,14 @@ export default function Header() {
                     </Link>
                     <a className="hover:text-gray-300 transition ease-in-out p-3">Conteúdo</a>
                     {!session?.user ? 
+                    <>
+                        <Link href="/novoprojeto">
+                            <a className="hover:text-gray-300 transition ease-in-out p-3">Novo Projeto</a>
+                        </Link>
                         <Link href="/login">
                             <a className="hover:text-gray-300 transition ease-in-out p-3">Entrar</a>
                         </Link>
+                    </>
                     :
                     <Link href="/" passHref>
                         <a onClick={() => signOut()} className="hover:text-gray-300 transition ease-in-out p-3">Sair</a>
