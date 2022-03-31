@@ -35,9 +35,9 @@ export default function Home({posts}: IPosts) {
       </div>
       <p className="text-3xl font-medium text-gray-700 p-5">Serviços disponiveis</p>
       
-      <div className="flex flex-col md:flex-row">
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3">
         {posts.map(post => (
-          <div key={post.id} className="flex-col w-4/12 p-20">
+          <div key={post.id} className="mx-10">
             <Link href={'/login'} passHref>
               <div className="flex flex-col justify-between shadow-xl h-128 pb-12 bg-white rounded-md overflow-hidden text-gray-500 hover:cursor-pointer">
                 <img src={post.image} alt="" className="bg-cover w-full h-48" />

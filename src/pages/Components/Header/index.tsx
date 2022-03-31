@@ -10,7 +10,7 @@ export default function Header() {
     //     alert('Conectado')
     // }
     return (
-        <div className="shadow-xl bg-white-500 py-2">
+        <div className="shadow-sm bg-white-500 py-2">
             <div className='container mx-auto p-1 flex items-center justify-between'>
                 <div className="flex items-center">
                     <img src="/image/atom.png" alt="Logo do site com animais se divertindo" className='w-23 h-16 rounded-md' />
