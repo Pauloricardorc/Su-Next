@@ -9,19 +9,6 @@ export default function Login() {
   const [email, setEmail] = useState('')
   // const [password, setPassword] = useState('')
 
-  async function handleSignInSession(e: FormEvent) {
-    e.preventDefault()
-    await axios({
-      method: 'post',
-      baseURL: '/api/session/signin',
-      data: {
-        email
-      }
-    }).then(res => alert(res.status))
-
-    return
-  }
-
   return (
     <div className="flex h-screen items-center justify-center font-Roboto">
       <div className="min-h-full py-24 px-4 sm:px-6 lg:px-8">
@@ -34,7 +21,7 @@ export default function Login() {
               <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">  vamos criar uma </a>
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSignInSession}>
+          <form className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" value="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>

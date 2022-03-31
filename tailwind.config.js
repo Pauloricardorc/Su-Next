@@ -13,7 +13,11 @@ module.exports = {
       'Roboto': ['Roboto', 'sans-serif'],
       'Indie': ['Indie Flower', 'cursive']
     },
-    extend: {},
+    extend: {
+      height: {
+        '128': '32rem',
+      }
+    },
   },
   plugins: [],
 }

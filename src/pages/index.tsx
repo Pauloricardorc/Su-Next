@@ -1,9 +1,25 @@
-import { PrismaClient } from "@prisma/client"
+import { Project } from "@prisma/client"
 import { GetServerSideProps } from "next"
+import { getSession, useSession } from "next-auth/react"
 import Link from "next/link"
 import { prisma } from "../lib/prisma"
 
-export default function Home() {
+type CPosts = {
+  id: String,
+  title: String,
+  description: String,
+  autor: String,
+  image: String,
+  date: Date
+}
+
+interface IPosts {
+  posts: Project[]
+}
+
+export default function Home({posts}: IPosts) {
+  const session = useSession()
+  console.log(session.data)
   return (
     <div className='font-Roboto'>
       <div className="flex mx-auto">
@@ -18,46 +34,56 @@ export default function Home() {
         </div>
       </div>
       <p className="text-3xl font-medium text-gray-700 p-5">Serviços disponiveis</p>
+      
       <div className="flex flex-col md:flex-row">
-        <div className="flex-col basis-2/5 p-10">
-          <Link href={'/login'} passHref>
-            <div className="flex flex-col shadow-md bg-white rounded-md overflow-hidden text-gray-500 hover:cursor-pointer">
-              <img src="https://cdn-images-1.medium.com/fit/t/1600/480/0*Bxu63mu1q7xHwjVP.jpg" alt="" className="bg-cover h-48" />
-              <p className="flex items-center w-full justify-center py-2 text-xl">Serviço de integração</p>
-              <div className="flex justify-center items-center h-full">
-                <p className="px-2 py-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        {posts.map(post => (
+          <div key={post.id} className="flex-col w-4/12 p-20">
+            <Link href={'/login'} passHref>
+              <div className="flex flex-col justify-between shadow-xl h-128 pb-12 bg-white rounded-md overflow-hidden text-gray-500 hover:cursor-pointer">
+                <img src={post.image} alt="" className="bg-cover w-full h-48" />
+                <p className="flex items-center w-full justify-center py-2 text-xl mx-auto truncate py-4">{post.title}</p>
+                <p className="px-2 py-3 text-ellipsis">{post.description}</p>
+                <span className="flex justify-end mr-4 font-bold text-gray-400">Publicação - {post.createdAt}</span>
               </div>
+            </Link>
+          </div>
+        ))}
+        {!session.data ? 
+          <div className="flex-col w-4/12 p-20">
+          <Link href={'/login'} passHref>
+            <div className="flex flex-col shadow-xl h-128 pb-2 bg-white rounded-md overflow-hidden text-gray-500 hover:cursor-pointer">
+              <img src='https://mundoconectado.com.br/uploads/chamadas/microsoft-auth.png' alt="" className="bg-cover h-48" />
+              <p className="flex items-center w-full justify-center py-2 text-xl mx-auto truncate py-4">Quer ver mais ?</p>
+              <div className="flex justify-start h-full">
+                <p className="px-2 py-3">Quer ver mais serviços disponível na empresa ATOMIC faça seu login</p>
+              </div>
+              <span className="flex justify-end mr-4 font-bold text-gray-400"></span>
             </div>
           </Link>
         </div>
-        <div className="flex-col basis-2/5 p-10">
-          <div className="flex flex-col shadow-md bg-white rounded-md overflow-hidden text-gray-500 hover:cursor-pointer">
-            <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--r3MNAUcd--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/4n8533fzovhyk6jceygu.png" alt="" className="bg-cover h-48" />
-            <p className="flex items-center w-full justify-center py-2 text-xl">Serviço de integração</p>
-            <div className="flex justify-center items-center h-full">
-              <p className="px-2 py-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            </div>
-          </div>
-        </div>
-        <div className="flex-col basis-2/5 p-10">
-          <div className="flex flex-col shadow-md bg-white rounded-md overflow-hidden text-gray-500 hover:cursor-pointer">
-            <img src="https://miro.medium.com/max/1200/1*BYxrwtYExQzRODXLLlN-DA.jpeg" alt="" className="bg-cover h-48" />
-            <p className="flex items-center w-full justify-center py-2 text-xl">Serviço de integração</p>
-            <div className="flex justify-center items-center h-full">
-              <p className="px-2 py-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            </div>
-          </div>
-        </div>
+        : ''}
       </div>
     </div>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+  const posts = await prisma.project.findMany()
+
+  const data = posts.map(post => {
+    return{
+      id: post.id,
+      title: post.title,
+      description: post.description,
+      autor: post.autor,
+      image: post.image,
+      createdAt: post.createdAt.toLocaleDateString()
+    }
+  })
 
   return {
     props: {
-
+      posts: data
     }
   }
 }
